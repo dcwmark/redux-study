@@ -2,6 +2,5 @@
 
 Study based on LearnCode.academy
 
-> npm install
+> npm install<br>
 > npm run dev
-
