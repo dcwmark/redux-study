@@ -121,7 +121,7 @@ store.subscribe(() => {
   console.log('store changed ', store.getState());
 });
 
-store.dispatch({ type: "CHANGE_NAME", payload: 'Xalnga' });
+store.dispatch({ type: "CHANGE_NAME", payload: 'Xalnaga' });
 store.dispatch({ type: "CHANGE_AGE", payload: 31 });
 store.dispatch({ type: "CHANGE_AGE", payload: 32 });
 store.dispatch({ type: "CHANGE_AGE", payload: 34 });
