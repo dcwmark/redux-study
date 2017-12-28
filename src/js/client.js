@@ -141,7 +141,7 @@ store.dispatch((dispatch) => {
 });
 
 /**
- * Using redux-promist to async-get.
+ * Using redux-promise to async-get.
 **/
 store.dispatch({
   type: 'FETCH_TODO',
