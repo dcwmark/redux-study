@@ -1,6 +1,7 @@
-# redux-study
+Redux-at-a-Glance
+=================
 
 Study based on LearnCode.academy
 
-> npm install<br>
+> npm install
 > npm run dev
