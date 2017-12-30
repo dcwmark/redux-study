@@ -18,6 +18,7 @@ const aUserReducer = (state = {}, action) => {
   state = stateChanger[action.type] ? stateChanger[action.type]() : stateChanger['DEFAULT']();
 
   return state;
+  
 };
 
 const initUsers = {
@@ -42,7 +43,7 @@ const usersReducer = (state = initUsers, action) => {
         error: action.payload
       };
     },
-    'FETCH_USER_FULLFILED': () => {
+    'FETCH_USER_FULLFILLED': () => {
       return {
         ...state,
         fetching: false,
@@ -55,6 +56,7 @@ const usersReducer = (state = initUsers, action) => {
   state = stateChanger[action.type] ? stateChanger[action.type]() : stateChanger['DEFAULT']();
 
   return state;
+
 };
 
 const initTodos = {
@@ -92,6 +94,7 @@ const todosReducer = (state = initTodos, action) => {
   state = stateChanger[action.type] ? stateChanger[action.type]() : stateChanger['DEFAULT']();
 
   return state;
+
 };
 
 const reducers = combineReducers({
@@ -133,7 +136,7 @@ store.dispatch((dispatch) => {
   dispatch({ type: 'FETCH_USER_PENDING' });
   axios.get('https://jsonplaceholder.typicode.com/users')
     .then((response) => {
-      dispatch({ type: 'FETCH_USER_FULLFILED', payload: response.data })
+      dispatch({ type: 'FETCH_USER_FULLFILLED', payload: response.data })
     })
     .catch((error) => {
       dispatch({ type: 'FETCH_USER_REJECTED', payload: error })
