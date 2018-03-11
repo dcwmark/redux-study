@@ -15,7 +15,7 @@ const aUserReducer = (state = {}, action) => {
     },
     'DEFAULT': () => { return state; },
   };
-  state = stateChanger[action.type] ? stateChanger[action.type]() : stateChanger['DEFAULT']();
+  state = stateChanger.hasOwnProperty(action.type) ? stateChanger[action.type]() : stateChanger['DEFAULT']();
 
   return state;
   
@@ -53,7 +53,7 @@ const usersReducer = (state = initUsers, action) => {
     },
     'DEFAULT': () => { return state; },
   };
-  state = stateChanger[action.type] ? stateChanger[action.type]() : stateChanger['DEFAULT']();
+  state = stateChanger.hasOwnProperty(action.type) ? stateChanger[action.type]() : stateChanger['DEFAULT']();
 
   return state;
 
@@ -91,7 +91,7 @@ const todosReducer = (state = initTodos, action) => {
     },
     'DEFAULT': () => { return state; },
   };
-  state = stateChanger[action.type] ? stateChanger[action.type]() : stateChanger['DEFAULT']();
+  state = stateChanger.hasOwnProperty(action.type) ? stateChanger[action.type]() : stateChanger['DEFAULT']();
 
   return state;
 
