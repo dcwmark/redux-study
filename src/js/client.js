@@ -1,8 +1,8 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
 import axios from "axios";
+import { applyMiddleware, combineReducers, createStore } from "redux";
 import logger from "redux-logger";
-import thunk from "redux-thunk";
 import promise from "redux-promise-middleware";
+import thunk from "redux-thunk";
 
 const aUserReducer = (state = {}, action) => {
 
@@ -124,29 +124,29 @@ store.subscribe(() => {
   console.log('store changed ', store.getState());
 });
 
-store.dispatch({ type: "CHANGE_NAME", payload: 'Xalnaga' });
-store.dispatch({ type: "CHANGE_AGE", payload: 31 });
-store.dispatch({ type: "CHANGE_AGE", payload: 32 });
-store.dispatch({ type: "CHANGE_AGE", payload: 34 });
+store.dispatch( { type: "CHANGE_NAME", payload: 'Xalnaga' } );
+store.dispatch( { type: "CHANGE_AGE", payload: 31 } );
+store.dispatch( { type: "CHANGE_AGE", payload: 32 } );
+store.dispatch( { type: "CHANGE_AGE", payload: 34 } );
 
 /**
  * Using redux-thunk to async-get; combining multi-dispatches.
 **/
-store.dispatch((dispatch) => {
-  dispatch({ type: 'FETCH_USER_PENDING' });
+store.dispatch( (dispatch) => {
+  dispatch( { type: 'FETCH_USER_PENDING' } );
   axios.get('https://jsonplaceholder.typicode.com/users')
-    .then((response) => {
-      dispatch({ type: 'FETCH_USER_FULLFILLED', payload: response.data })
-    })
-    .catch((error) => {
-      dispatch({ type: 'FETCH_USER_REJECTED', payload: error })
-    })
-});
+    .then( (response) => {
+      dispatch( { type: 'FETCH_USER_FULLFILLED', payload: response.data } )
+    } )
+    .catch( (error) => {
+      dispatch( { type: 'FETCH_USER_REJECTED', payload: error } )
+    } )
+} );
 
 /**
  * Using redux-promise to async-get.
 **/
-store.dispatch({
+store.dispatch( {
   type: 'FETCH_TODO',
   payload: axios.get('https://jsonplaceholder.typicode.com/todos')
-});
+} );
