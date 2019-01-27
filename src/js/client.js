@@ -4,22 +4,32 @@ import logger from "redux-logger";
 import promise from "redux-promise-middleware";
 import thunk from "redux-thunk";
 
+const DEFAULT = 'DEFAULT';
+
+const CHANGE_NAME = 'CHANGE_NAME';
+const CHANGE_AGE = 'CHANGE_AGE';
+
 const aUserReducer = (state = {}, action) => {
 
   const stateChanger = {
-    'CHANGE_NAME': () => {
+    [CHANGE_NAME]: () => {
       return { ...state, name: action.payload };
     },
-    'CHANGE_AGE': () => {
+    [CHANGE_AGE]: () => {
       return { ...state, age: action.payload };
     },
-    'DEFAULT': () => { return state; },
+    [DEFAULT]: () => { return state; },
   };
-  state = stateChanger.hasOwnProperty(action.type) ? stateChanger[action.type]() : stateChanger['DEFAULT']();
+  state = stateChanger.hasOwnProperty(action.type) ?
+      stateChanger[action.type]() : stateChanger[DEFAULT]();
 
   return state;
   
 };
+
+const FETCH_USER_PENDING = 'FETCH_USER_PENDING';
+const FETCH_USER_REJECTED = 'FETCH_USER_REJECTED';
+const FETCH_USER_FULLFILLED = 'FETCH_USER_FULLFILLED';
 
 const initUsers = {
   fetching: false,
@@ -30,20 +40,20 @@ const initUsers = {
 const usersReducer = (state = initUsers, action) => {
 
   const stateChanger = {
-    'FETCH_USER_PENDING': () => {
+    [FETCH_USER_PENDING]: () => {
       return {
         ...state,
         fetching: true
       };
     },
-    'FETCH_USER_REJECTED': () => {
+    [FETCH_USER_REJECTED]: () => {
       return {
         ...state,
         fetching: false,
         error: action.payload
       };
     },
-    'FETCH_USER_FULLFILLED': () => {
+    [FETCH_USER_FULLFILLED]: () => {
       return {
         ...state,
         fetching: false,
@@ -51,13 +61,18 @@ const usersReducer = (state = initUsers, action) => {
         users: action.payload
       };
     },
-    'DEFAULT': () => { return state; },
+    [DEFAULT]: () => { return state; },
   };
-  state = stateChanger.hasOwnProperty(action.type) ? stateChanger[action.type]() : stateChanger['DEFAULT']();
+  state = stateChanger.hasOwnProperty(action.type) ?
+      stateChanger[action.type]() : stateChanger[DEFAULT]();
 
   return state;
 
 };
+
+const FETCH_TODO_PENDING = 'FETCH_TODO_PENDING';
+const FETCH_TODO_REJECTED = 'FETCH_TODO_REJECTED';
+const FETCH_TODO_FULFILLED = 'FETCH_TODO_FULFILLED';
 
 const initTodos = {
   fetching: false,
@@ -68,20 +83,20 @@ const initTodos = {
 const todosReducer = (state = initTodos, action) => {
 
   const stateChanger = {
-    'FETCH_TODO_PENDING': () => {
+    [FETCH_TODO_PENDING]: () => {
       return {
         ...state,
         fetching: true
       };
     },
-    'FETCH_TODO_REJECTED': () => {
+    [FETCH_TODO_REJECTED]: () => {
       return {
         ...state,
         fetching: false,
         error: action.payload
       };
     },
-    'FETCH_TODO_FULFILLED': () => {
+    [FETCH_TODO_FULFILLED]: () => {
       return {
         ...state,
         fetching: false,
@@ -89,9 +104,10 @@ const todosReducer = (state = initTodos, action) => {
         todos: action.payload.data
       };
     },
-    'DEFAULT': () => { return state; },
+    [DEFAULT]: () => { return state; },
   };
-  state = stateChanger.hasOwnProperty(action.type) ? stateChanger[action.type]() : stateChanger['DEFAULT']();
+  state = stateChanger.hasOwnProperty(action.type) ?
+      stateChanger[action.type]() : stateChanger[DEFAULT]();
 
   return state;
 
@@ -124,10 +140,10 @@ store.subscribe(() => {
   console.log('store changed ', store.getState());
 });
 
-store.dispatch( { type: "CHANGE_NAME", payload: 'Xalnaga' } );
-store.dispatch( { type: "CHANGE_AGE", payload: 31 } );
-store.dispatch( { type: "CHANGE_AGE", payload: 32 } );
-store.dispatch( { type: "CHANGE_AGE", payload: 34 } );
+store.dispatch( { type: CHANGE_NAME, payload: 'Xalnaga' } );
+store.dispatch( { type: CHANGE_AGE, payload: 31 } );
+store.dispatch( { type: CHANGE_AGE, payload: 32 } );
+store.dispatch( { type: CHANGE_AGE, payload: 34 } );
 
 /**
  * Using redux-thunk to async-get; combining multi-dispatches.
@@ -136,10 +152,10 @@ store.dispatch( (dispatch) => {
   dispatch( { type: 'FETCH_USER_PENDING' } );
   axios.get('https://jsonplaceholder.typicode.com/users')
     .then( (response) => {
-      dispatch( { type: 'FETCH_USER_FULLFILLED', payload: response.data } )
+      dispatch( { type: FETCH_USER_FULLFILLED, payload: response.data } )
     } )
     .catch( (error) => {
-      dispatch( { type: 'FETCH_USER_REJECTED', payload: error } )
+      dispatch( { type: FETCH_USER_REJECTED, payload: error } )
     } )
 } );
 
